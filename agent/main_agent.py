@@ -96,6 +96,7 @@ class MainAgent:
         return {
             "answer": answer,
             "contexts": [c["text"] for c in contexts],
+            "retrieved_ids": [c["id"] for c in contexts],
             "metadata": {
                 "model": "gpt-4o-mini",
                 "sources": list(set([c["source_path"] for c in contexts]))

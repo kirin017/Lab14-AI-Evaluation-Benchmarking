@@ -9,6 +9,7 @@ except ImportError:
     aiofiles = None
 
 from engine.consensus import build_default_engine, ConsensusEngine
+from engine.retrieval_eval import RetrievalEvaluator
 from agent.main_agent import MainAgent
 
 
@@ -70,6 +71,21 @@ async def run_benchmark_with_results(agent_version: str):
     levels = [r["judge"]["agreement_level"] for r in results]
     most_common_level = Counter(levels).most_common(1)[0][0] if levels else "Unknown"
 
+    # Retrieval metrics (Hit Rate & MRR)
+    retrieval_evaluator = RetrievalEvaluator()
+    hit_rates, mrrs = [], []
+    for r, case in zip(results, dataset):
+        if case.get("metadata", {}).get("skip_retrieval_eval"):
+            continue
+        expected_ids = case.get("expected_retrieval_ids", [])
+        retrieved_ids = r.get("retrieved_ids", [])
+        if expected_ids and retrieved_ids:
+            hit_rates.append(retrieval_evaluator.calculate_hit_rate(expected_ids, retrieved_ids))
+            mrrs.append(retrieval_evaluator.calculate_mrr(expected_ids, retrieved_ids))
+
+    avg_hit_rate = round(sum(hit_rates) / len(hit_rates), 4) if hit_rates else 0.0
+    avg_mrr = round(sum(mrrs) / len(mrrs), 4) if mrrs else 0.0
+
     # Judge reliability
     reliability = consensus_engine.get_judge_reliability()
 
@@ -86,6 +102,8 @@ async def run_benchmark_with_results(agent_version: str):
             "agreement_rate": round(avg_agreement, 2),
             "conflict_rate": round(conflict_rate, 2),
             "avg_judge_latency_ms": round(avg_latency, 2),
+            "hit_rate": avg_hit_rate,
+            "mrr": avg_mrr,
         },
         "judge_reliability": reliability,
         "consensus_config": {
@@ -123,6 +141,7 @@ async def _run_single_test(
         "test_case": test_case["question"],
         "agent_response": response["answer"],
         "latency": latency,
+        "retrieved_ids": response.get("retrieved_ids", []),
         "judge": judge_result,
         "status": status,
     }

@@ -10,7 +10,9 @@
     "avg_agreement_level": "Very High",
     "agreement_rate": 0.93,
     "conflict_rate": 0.04,
-    "avg_judge_latency_ms": 1590.92
+    "avg_judge_latency_ms": 1590.92,
+    "hit_rate": 0.8378,
+    "mrr": 0.7477
   },
   "judge_reliability": {
     "gpt-4o-mini": {
