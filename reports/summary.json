@@ -2,11 +2,11 @@
   "metadata": {
     "version": "Agent_V2_Optimized",
     "total": 74,
-    "timestamp": 86414.125
+    "timestamp": 87731.312
   },
   "metrics": {
-    "avg_score": 4.18,
-    "avg_agreement_rate": 0.93,
+    "avg_score": 4.17,
+    "avg_agreement_rate": 0.92,
     "avg_agreement_level": "Very High",
     "agreement_rate": 0.93,
     "conflict_rate": 0.04,
@@ -16,8 +16,8 @@
   },
   "judge_reliability": {
     "gpt-4o-mini": {
-      "reliability": 0.59,
-      "avg_score": 4.11,
+      "reliability": 0.57,
+      "avg_score": 4.08,
       "samples": 74
     },
     "gemini-3.1-flash-lite": {
