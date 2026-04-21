@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "version": "Agent_V2_Optimized",
+    "total": 74,
+    "timestamp": 86414.125
+  },
+  "metrics": {
+    "avg_score": 4.18,
+    "avg_agreement_rate": 0.93,
+    "avg_agreement_level": "Very High",
+    "agreement_rate": 0.93,
+    "conflict_rate": 0.04,
+    "avg_judge_latency_ms": 1590.92
+  },
+  "judge_reliability": {
+    "gpt-4o-mini": {
+      "reliability": 0.59,
+      "avg_score": 4.11,
+      "samples": 74
+    },
+    "gemini-3.1-flash-lite": {
+      "reliability": 0.59,
+      "avg_score": 4.26,
+      "samples": 74
+    }
+  },
+  "consensus_config": {
+    "judges": [
+      "gpt-4o-mini",
+      "gemini-3.1-flash-lite"
+    ],
+    "arbitrator": "gpt-4o-mini-arb",
+    "conflict_strategy": "median_then_arbitrator",
+    "tolerance": 1.0
+  }
+}

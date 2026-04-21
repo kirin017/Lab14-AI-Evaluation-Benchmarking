@@ -1,19 +1,17 @@
 # Báo cáo Phân tích Thất bại (Failure Analysis Report)
 
 ## 1. Tổng quan Benchmark
-- **Tổng số cases:** 50
-- **Tỉ lệ Pass/Fail:** X/Y
-- **Điểm RAGAS trung bình:**
-    - Faithfulness: 0.XX
-    - Relevancy: 0.XX
-- **Điểm LLM-Judge trung bình:** X.X / 5.0
+- **Tổng số cases:** 74
+- **Tỉ lệ Pass/Fail:** 63/11 (Pass threshold: 3.0)
+- **Hệ số đồng thuận (Agreement Rate):** 0.93 (Very High)
+- **Điểm LLM-Judge trung bình:** 4.18 / 5.0
 
 ## 2. Phân nhóm lỗi (Failure Clustering)
 | Nhóm lỗi | Số lượng | Nguyên nhân dự kiến |
 |----------|----------|---------------------|
-| Hallucination | 5 | Retriever lấy sai context |
-| Incomplete | 3 | Prompt quá ngắn, không yêu cầu chi tiết |
-| Tone Mismatch | 2 | Agent trả lời quá suồng sã |
+| Reasoning | 5 | Agent không kết hợp được thông tin từ nhiều chunk (Multi-doc) |
+| Hallucination | 3 | Agent trả lời sai quy định khi bị "tấn công" bằng Prompt Injection |
+| Incomplete | 3 | Retrieval lấy thiếu context quan trọng (ví dụ: ngày onsite phụ) |
 
 ## 3. Phân tích 5 Whys (Chọn 3 case tệ nhất)
 
